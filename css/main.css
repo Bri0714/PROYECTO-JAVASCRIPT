@@ -74,7 +74,6 @@ div img {
 
 .licores {
 
-    height: 110vh;
     background-color: #0e022d94;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -87,6 +86,9 @@ div img {
 
 .licor {
 
+    display: grid;
+    justify-content: center;
+    align-items: center;
     width: 230px;
     height: 320px;
     border: 2px solid white;
@@ -173,6 +175,7 @@ h6{
 .grupo-2{
     background-color: rgb(5, 43, 58);
     position: absolute;
+    bottom: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
