@@ -1,4 +1,4 @@
-📖 Programa para una empresa de rutas escolares . 
+📖 Programa para una empresa de venta de licores en fontibon Bogota . 
 
 💾 Básicamente es un programa que utiliza las siguientes herramientas 
-Variables funciones, funciones en funciones  . 
+Dom y Eventos de java Script  . 
