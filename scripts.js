@@ -18,9 +18,19 @@ Contenedor = document.getElementById("Contenedorlicores")
 Contenedor.className = "licores"
 renderizarlicores(licores)
 
+
+/*CARRITO*/
+
 let carrito = []
+if(localStorage.getItem("carrito")){
+    carrito = JSON.parse(localStorage.getItem("carrito"))
+}
+
 let contenedorcarrito = document.getElementById("contenedorcarrito")
 
+/*EJEMPLO BUSCADOR SIN BOTON INPUT*/
+
+/*
 let Buscador = document.getElementById("Buscador")
 Buscador.addEventListener("input", renderizarlicoresfiltrados)
 
@@ -30,19 +40,14 @@ function renderizarlicoresfiltrados() {
     console.log(licoresfiltrados)
     renderizarlicores(licoresfiltrados)
 }
-
-let Buscar = document.getElementById("Buscar")
-Buscar.addEventListener("click", BuscarLicor)
-
-function BuscarLicor(){
-
-}
+*/
 
 /*
 for(const licor of licores){
     Contenedor.innerHTML = Contenedor.innerHTML + "<div>" + licor.nombre + "</div>"
 }
 */
+/*BUSCADOR CON BOTON*/
 
 function renderizarlicores(arraydelicores) {
     Contenedor.innerHTML = ""
@@ -71,20 +76,61 @@ function renderizarlicores(arraydelicores) {
     }
 }
 
+let Buscador = document.getElementById("Buscador") 
+let Boton = document.getElementById("Boton")
+
+Boton.addEventListener("click", buscar)
+
+function buscar(e){
+    e.preventDefault()
+    let licoresfiltrados = licores.filter(licor => licor.nombre.toLowerCase().includes(Buscador.value.toLowerCase()))
+    renderizarlicores(licoresfiltrados)
+
+}
+
+
+
 function agregaralcarrito(e) {
     let licorbuscado = licores.find(licor => licor.id == e.target.id)
     console.log(licorbuscado)
-    carrito.push(licorbuscado)
+    let posiciondellicorbuscado = carrito.findIndex(licor => licor.id == licorbuscado.id)
+    if(posiciondellicorbuscado != -1){
+        console.log("prueba")
+        carrito[posiciondellicorbuscado].unidades++
+        carrito[posiciondellicorbuscado].subtotal = carrito[posiciondellicorbuscado].unidades * carrito[posiciondellicorbuscado].precio
+
+    }else{
+        carrito.push({id: licorbuscado.id, nombre: licorbuscado.nombre, precio: licorbuscado.precio, unidades: 1, subtotal: licorbuscado.precio, stock:licorbuscado.stock})
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito))
     renderizarcarrito(carrito)
 }
 
-function renderizarcarrito(arraydelicores){
+function renderizarcarrito(arraycarrito){
     contenedorcarrito.innerHTML =  ""
-    for (const licor of arraydelicores) {
+    for (const licor of arraycarrito) {
         contenedorcarrito.innerHTML += ` 
             <h3 class="key"><b> ${licor.nombre}</b></h3>
-            <p class="key"> PRECIO:${licor.precio}</p>        
+            <p class="key"> PRECIO:${licor.precio}</p>
+            <p class="key"> ${licor.unidades}</p>
+            <p class="key"> $${licor.subtotal}</p>          
             `
     }
+    let total = carrito.reduce((acc, valoractual) => acc + valoractual.subtotal ,0)
+    contenedorcarrito.innerHTML += `
+        <div class="keykey">TOTAL $${total}</div>
+        `
 }
+
+let botoncomprar = document.getElementById("comprar")
+botoncomprar.addEventListener("click", () => {
+    localStorage.removeItem("carrito")
+    carrito = []
+    renderizarcarrito(carrito)
+})
+
+
+
+
+
 
