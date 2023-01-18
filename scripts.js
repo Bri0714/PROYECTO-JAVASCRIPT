@@ -23,11 +23,9 @@ renderizarlicores(licores)
 /*CARRITO*/
 
 let carrito = []
-if(localStorage.getItem("carrito")){
+if (localStorage.getItem("carrito")) {
     carrito = JSON.parse(localStorage.getItem("carrito"))
 }
-
-let contenedorcarrito = document.getElementById("contenedorcarrito")
 
 /*EJEMPLO BUSCADOR SIN BOTON INPUT*/
 
@@ -78,66 +76,55 @@ function renderizarlicores(arraydelicores) {
 
 /*BUSCADOR CON BOTON*/
 
-let Buscador = document.getElementById("Buscador") 
+let Buscador = document.getElementById("Buscador")
 let Boton = document.getElementById("Boton")
 
 Boton.addEventListener("click", buscar)
 
-function buscar(e){
+function buscar(e) {
     e.preventDefault()
     let licoresfiltrados = licores.filter(licor => licor.nombre.toLowerCase().includes(Buscador.value.toLowerCase()))
+
     renderizarlicores(licoresfiltrados)
 
 }
 
+
 /*CARRITO ADD*/
+
 
 function agregaralcarrito(e) {
     let licorbuscado = licores.find(licor => licor.id == e.target.id)
     console.log(licorbuscado)
     let posiciondellicorbuscado = carrito.findIndex(licor => licor.id == licorbuscado.id)
-    if(posiciondellicorbuscado != -1){
+    if (posiciondellicorbuscado != -1) {
         console.log("prueba")
         carrito[posiciondellicorbuscado].unidades++
         carrito[posiciondellicorbuscado].subtotal = carrito[posiciondellicorbuscado].unidades * carrito[posiciondellicorbuscado].precio
 
-    }else{
-        carrito.push({id: licorbuscado.id, nombre: licorbuscado.nombre, precio: licorbuscado.precio, unidades: 1, subtotal: licorbuscado.precio, stock:licorbuscado.stock})
+    } else {
+        carrito.push({ id: licorbuscado.id, nombre: licorbuscado.nombre, precio: licorbuscado.precio, unidades: 1, subtotal: licorbuscado.precio, stock: licorbuscado.stock })
     }
     localStorage.setItem("carrito", JSON.stringify(carrito))
-    renderizarcarrito(carrito)
-}
 
-function renderizarcarrito(arraycarrito){
-    contenedorcarrito.innerHTML =  ""
-    for (const licor of arraycarrito) {
-        contenedorcarrito.innerHTML += ` 
-            <h3 class="key"><b> ${licor.nombre}</b></h3>
-            <p class="key"> PRECIO:${licor.precio}</p>
-            <p class="key"> ${licor.unidades}</p>
-            <p class="key"> $${licor.subtotal}</p>          
-            `
-    }
-    let total = carrito.reduce((acc, valoractual) => acc + valoractual.subtotal ,0)
-    contenedorcarrito.innerHTML += `
-        <div class="keykey">TOTAL $${total}</div>
-        `
-}
-
-/*BOTON COMPRAR*/
-
-let botoncomprar = document.getElementById("comprar")
-botoncomprar.addEventListener("click", () => {
-
-    Swal.fire({
-        text: 'Gracias por su compra',
-        icon: 'success',
-        confirmButtonText: 'Cerrar'
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom',
+        showConfirmButton: false,
+        color: "white",
+        background: "#041240",
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
     })
 
-    localStorage.removeItem("carrito")
-    carrito = []
-    renderizarcarrito(carrito)
-    
-})
+    Toast.fire({
+        icon: 'success',
+        title: 'Producto agregado correctamente'
+    })
+}
+
 

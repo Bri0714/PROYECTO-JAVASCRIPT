@@ -218,9 +218,21 @@ h6{
     padding: 100px;
     border: 2px solid white;
 }
-
+#contenedorcarrito2{
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: 100%;
+    padding: 100px;
+    border: 2px solid white;
+}
 #comprar{
     margin-left: 50%;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.hidden {
+	display: none !important;
 }
