@@ -1,6 +1,7 @@
 console.log(document.body)
 console.dir(document.body)
 
+
 let Contenedor = document.getElementById("Contenedorlicores")
 
 let licores = [
@@ -47,7 +48,6 @@ for(const licor of licores){
     Contenedor.innerHTML = Contenedor.innerHTML + "<div>" + licor.nombre + "</div>"
 }
 */
-/*BUSCADOR CON BOTON*/
 
 function renderizarlicores(arraydelicores) {
     Contenedor.innerHTML = ""
@@ -76,6 +76,8 @@ function renderizarlicores(arraydelicores) {
     }
 }
 
+/*BUSCADOR CON BOTON*/
+
 let Buscador = document.getElementById("Buscador") 
 let Boton = document.getElementById("Boton")
 
@@ -88,7 +90,7 @@ function buscar(e){
 
 }
 
-
+/*CARRITO ADD*/
 
 function agregaralcarrito(e) {
     let licorbuscado = licores.find(licor => licor.id == e.target.id)
@@ -122,15 +124,20 @@ function renderizarcarrito(arraycarrito){
         `
 }
 
+/*BOTON COMPRAR*/
+
 let botoncomprar = document.getElementById("comprar")
 botoncomprar.addEventListener("click", () => {
+
+    Swal.fire({
+        text: 'Gracias por su compra',
+        icon: 'success',
+        confirmButtonText: 'Cerrar'
+    })
+
     localStorage.removeItem("carrito")
     carrito = []
     renderizarcarrito(carrito)
+    
 })
-
-
-
-
-
 
