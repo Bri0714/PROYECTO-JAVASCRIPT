@@ -1,0 +1,10 @@
+[
+    { "id": 1, "nombre": "Cerveza Poker", "precio": 25000, "stock": 15, "imgUrl": "img/poker.png" },
+    { "id": 2, "nombre": "Cerveza Aguila", "precio": 25000, "stock": 15, "imgUrl": "img/aguila.png" },
+    { "id": 3, "nombre": " Aguardiente Nectar Verde", "precio": 48000, "stock": 15, "imgUrl": "img/nectar.png" },
+    { "id": 4, "nombre": "Aguardiente Nectar Rojo", "precio": 45000, "stock": 30, "imgUrl": "img/nectarred.png" },
+    { "id": 5, "nombre": " Aguardiente Antioqueño Verde", "precio": 40000, "stock": 35, "imgUrl": "img/antioqueño.png" },
+    { "id": 6, "nombre": "Whiskey oldpar", "precio": 150000, "stock": 50, "imgUrl": "img/oldpar.png" },
+    { "id": 7, "nombre": " Tequila Jose Cuervo", "precio": 90000, "stock": 50, "imgUrl": "img/tequila.png" },
+    { "id": 8, "nombre": " Bacardi de limon", "precio": 100000, "stock": 50, "imgUrl": "img/bacardi.png" }
+]
